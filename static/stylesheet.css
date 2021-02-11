@@ -1,0 +1,20 @@
+@font-face {
+    font-family: roboto;
+    src: url(./static/RobotoCondensed-Regular.ttf) format('truetype');
+}
+
+p {
+    font-family: roboto;
+}
+
+div {
+    font-family: roboto;
+}
+
+H1 {
+    font-family: roboto;
+}
+
+h1 {
+    font-family: roboto;
+}

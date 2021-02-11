@@ -11,7 +11,7 @@ import dash_html_components as html
 import plotly.express as px
 
 #Create the dataframe
-df = pd.read_csv('output.csv')
+df = pd.read_csv("./static/output.csv")
 df = df.drop(['Unnamed: 0'], axis=1) #Drop the first column containing unnamed axis
 
 #Regex the hell outta the dataframe
@@ -47,7 +47,7 @@ empties = empties.index.tolist()
 df_out = df_out.drop(empties)
 
 #Import dictionary with geolocations
-with open('location.json', encoding='utf-8') as json_file:
+with open('./static/location.json', encoding='utf-8') as json_file:
     locations = json.load(json_file)
 
 #Create a copy so we don't change the original file
@@ -59,8 +59,12 @@ df_final['lon'] = df_final['content'].apply(lambda x: locations[x][1])
 counts = df_final['content'].value_counts()
 df_final['size'] = df_final['content'].apply(lambda x: counts[x])
 
+#external stylesheet for dash
+external_style = ['./static/stylesheet.css']
+
 #Create the Dash app
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=external_style)
+server = app.server
 
 fig = px.scatter(df_final, x="lat", y="lon", size='size')
 

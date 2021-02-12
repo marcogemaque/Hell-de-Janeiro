@@ -6,8 +6,8 @@ I used mainly dash in here, along with a whole bunch of pandas and numpy to trea
 
 A huge part of this was the fact that by standard the tweets had the following format <br>
 ```
-Place: xxx <br>
-Time: xxx
+Local: xxx
+Hora: xxx
 ```
 That way I was able to select those who fit that description, and then proceed to remove blank spaces at the end, parenthesis, bars, and all sort of characters which made our database heterogeneous. <br>
 

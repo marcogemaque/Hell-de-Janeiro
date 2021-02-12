@@ -1,6 +1,6 @@
 @font-face {
     font-family: roboto;
-    src: url(./static/RobotoCondensed-Regular.ttf) format('truetype');
+    src: url(./RobotoCondensed-Regular.ttf) format('truetype');
 }
 
 p {

@@ -9,6 +9,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
+import plotly.graph_objects as go
 
 #Create the dataframe
 df = pd.read_csv("./static/output.csv")
@@ -66,19 +67,36 @@ external_style = ['./static/stylesheet.css']
 app = dash.Dash(__name__, external_stylesheets=external_style)
 server = app.server
 
-fig = px.scatter(df_final, x="lat", y="lon", size='size')
+fig1 = go.Figure(data=go.Scattergeo(lon=df_final['lon'],
+                                    lat=df_final['lat'],
+                                    text=df_final['content'],
+                                    mode='markers',
+                                    marker_color = df_final['size']))
+fig1.update_layout(geo_scope='south america')
+
+fig2 = px.bar(counts[:10], x=counts[:10].index, y=counts[:10],
+labels={'x':'Neighborhoods','y':"Shooting's count"},
+color=counts[:10].index)
 
 app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
-
+    html.H1(children='Hell de Janeiro'),
+    html.P(
+        children="Not all realities should be routines."
+    ),
     html.Div(children='''
-        Hell de Janeiro: Unaccustomed to reality.
+        Map of reported shootings by location.
     '''),
-
     dcc.Graph(
         id='main-chart',
-        figure=fig
-    )
+        figure=fig1
+    ),
+    html.Div(children='''
+        Top 10 neighborhoods with reported shootings
+    '''),
+    dcc.Graph(
+        id='secondary',
+        figure=fig2
+    ),
 ])
 
 if __name__ == '__main__':

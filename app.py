@@ -67,32 +67,48 @@ external_style = ['./static/stylesheet.css']
 app = dash.Dash(__name__, external_stylesheets=external_style)
 server = app.server
 
-fig1 = go.Figure(data=go.Scattergeo(lon=df_final['lon'],
-                                    lat=df_final['lat'],
-                                    text=df_final['content'],
-                                    mode='markers',
-                                    marker_color = df_final['size']))
-fig1.update_layout(geo_scope='south america')
-
+fig1 = go.Figure(data=go.Scattergeo(
+                lon=df_final['lon'],
+                lat=df_final['lat'],
+                mode='markers',
+                text=df_final['content'],
+                marker_color=df_final['size'],
+                ))
+fig1.update_layout(title="Shootings Reported per Location",
+                    geo_scope='south america',
+                    height=800)
 fig2 = px.bar(counts[:10], x=counts[:10].index, y=counts[:10],
-labels={'x':'Neighborhoods','y':"Shooting's count"},
-color=counts[:10].index)
+        labels={'x':'Neighborhoods','y':"Shooting's count"},
+        color=counts[:10].index)
+fig2.update_layout(title="Shootings reported by neighborhoods in RJ")
 
 app.layout = html.Div(children=[
     html.H1(children='Hell de Janeiro'),
-    html.P(
-        children="Not all realities should be routines."
-    ),
-    html.Div(children='''
-        Map of reported shootings by location.
-    '''),
+    html.P("In a world of universal deceipt, telling the truth is a revolutionary act."),
+    html.Div(
+        className="row",
+        style={'width':500,'margin':20,'display':'flex'},
+    children=[
+        html.Div([
+            html.H3('Tweets Read'),
+            html.P(df_final.shape[0]),
+        ], className='six columns',
+        style={'margin':20}),
+        html.Div([
+            html.H3('Last Date Collected'),
+            html.P(df_final['date'][0][:4]+"/"+df_final['date'][0][5:7]+'/'+df_final['date'][0][8:10]),
+        ], className='six columns',
+        style={'margin':20}),
+        html.Div([
+            html.H3('Oldest Date Collected'),
+            html.P(df_final['date'][df_final.shape[0]][:4]+"/"+df_final['date'][df_final.shape[0]][5:7]+'/'+df_final['date'][df_final.shape[0]][8:10]),
+        ], className="six columns",
+        style={'margin':20}),
+    ]),
     dcc.Graph(
         id='main-chart',
         figure=fig1
     ),
-    html.Div(children='''
-        Top 10 neighborhoods with reported shootings
-    '''),
     dcc.Graph(
         id='secondary',
         figure=fig2

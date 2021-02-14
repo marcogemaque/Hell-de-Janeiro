@@ -4,9 +4,6 @@ import numpy as np
 import re
 import json
 
-#import linear regression model from scikit
-from sklearn.linear_model import LinearRegression
-
 #import dash
 import dash
 import dash_core_components as dcc

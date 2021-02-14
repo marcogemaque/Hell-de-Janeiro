@@ -4,6 +4,9 @@ import numpy as np
 import re
 import json
 
+#import linear regression model from scikit
+from sklearn.linear_model import LinearRegression
+
 #import dash
 import dash
 import dash_core_components as dcc
@@ -67,6 +70,7 @@ external_style = ['./static/stylesheet.css']
 app = dash.Dash(__name__, external_stylesheets=external_style)
 server = app.server
 
+#Figures created for the dashboard
 fig1 = go.Figure(data=go.Scattergeo(
                 lon=df_final['lon'],
                 lat=df_final['lat'],
@@ -77,6 +81,7 @@ fig1 = go.Figure(data=go.Scattergeo(
 fig1.update_layout(title="Shootings Reported per Location",
                     geo_scope='south america',
                     height=800)
+
 fig2 = px.bar(counts[:10], x=counts[:10].index, y=counts[:10],
         labels={'x':'Neighborhoods','y':"Shooting's count"},
         color=counts[:10].index)
@@ -113,6 +118,18 @@ app.layout = html.Div(children=[
     dcc.Graph(
         id='secondary',
         figure=fig2
+    ),
+    html.H3("Select a neighborhood to visualize the shooting prediction"),
+    html.Div([
+        "Input: ",
+        dcc.Dropdown(id="dropdown",
+        options=[
+            {'label':i, 'value':i} for i in df_final['content'].unique()
+        ]),
+    ]),
+    dcc.Graph(
+        id='third',
+        #figure=fig3
     ),
 ])
 

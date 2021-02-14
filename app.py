@@ -85,6 +85,7 @@ fig2.update_layout(title="Shootings reported by neighborhoods in RJ")
 app.layout = html.Div(children=[
     html.H1(children='Hell de Janeiro'),
     html.P("In a world of universal deceipt, telling the truth is a revolutionary act."),
+    dcc.Link('Check out the Github', href="https://github.com/marcogemaque", target="_blank"),
     html.Div(
         className="row",
         style={'width':500,'margin':20,'display':'flex'},

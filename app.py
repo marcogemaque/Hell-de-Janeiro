@@ -84,6 +84,9 @@ fig2 = px.bar(counts[:10], x=counts[:10].index, y=counts[:10],
         color=counts[:10].index)
 fig2.update_layout(title="Shootings reported by neighborhoods in RJ")
 
+#Prepare the data for the 3rd figure
+
+
 app.layout = html.Div(children=[
     html.H1(children='Hell de Janeiro'),
     html.P("In a world of universal deceipt, telling the truth is a revolutionary act."),

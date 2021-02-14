@@ -12,10 +12,10 @@ Hora: xxx
 That way I was able to select those who fit that description, and then proceed to remove blank spaces at the end, parenthesis, bars, and all sort of characters which made our database heterogeneous. <br>
 
 ## Deploy
-Heroku was used. Since the app is still in testing, it hasn't been deployed yet. <br>
+Deploy was made on Heroku. Link to app is on hyperlink at the title of this github. <br>
 
 ## Ongoing Updates
-Currently I'm finding a way to automatize the twitter api scraping and database update so that the app is renewed each week with new tweets.
+Currently I'm finding a way to automatize the twitter api scraping and database update so that the app is renewed each month with new tweets.
 
 ## Shoutouts
 Shoutout to @saramalvar who gave enormous help all throughout the project.

@@ -11,6 +11,7 @@ import dash_html_components as html
 import plotly.express as px
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
+import statsmodels.api as sm
 
 #Create the dataframe
 df = pd.read_csv("./static/output.csv")

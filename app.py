@@ -11,7 +11,6 @@ import dash_html_components as html
 import plotly.express as px
 import plotly.graph_objects as go
 from dash.dependencies import Input, Output
-import statsmodels.api as sm
 
 #Create the dataframe
 df = pd.read_csv("./static/output.csv")
@@ -115,6 +114,7 @@ fig3 = px.scatter(
     trendline='ols',
     trendline_color_override='darkblue'
 )
+fig3.update_layout(title="Time series display of reported shootings by neighborhood")
 
 app.layout = html.Div(children=[
     html.H1(children='Hell de Janeiro'),

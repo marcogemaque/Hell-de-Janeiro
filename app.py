@@ -10,6 +10,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import plotly.graph_objects as go
+from dash.dependencies import Input, Output
 
 #Create the dataframe
 df = pd.read_csv("./static/output.csv")
@@ -85,7 +86,34 @@ fig2 = px.bar(counts[:10], x=counts[:10].index, y=counts[:10],
 fig2.update_layout(title="Shootings reported by neighborhoods in RJ")
 
 #Prepare the data for the 3rd figure
+def prepare_df(df_x, name_nb='Belford Roxo'):
+    #Function created to return a dataframe ready for plotting.
+    #2 entry variables: original dataframe and neighborhood to filter by
+    df_fig = df_x.copy()
+    df_fig = df_fig.loc[df_fig['content'] == name_nb]
+    df_fig['date'] = df_fig['date'].str[:11]
+    df_fig = df_fig.sort_values(by=['date'])
+    list_vals = [x for x in range(df_fig.shape[0])] #Create a list with the number of 
+    df_fig['counts'] = list_vals
+    i = 1 #counter for the loop so we can refer to the previous iteration
+    list_dates = [0]
+    for x in range(1,df_fig['date'].shape[0]):
+        if df_fig['date'].values[i] == df_fig['date'].values[i-1]:
+            list_dates.append(list_dates[-1])
+            i+=1
+        else:
+            list_dates.append(x)
+            i+=1
+    df_fig['date_num'] = list_dates
+    return df_fig
 
+df_fig3 = prepare_df(df_final)
+fig3 = px.scatter(
+    df_fig3, x='date_num',y='counts',
+    opacity=0.65,
+    trendline='ols',
+    trendline_color_override='darkblue'
+)
 
 app.layout = html.Div(children=[
     html.H1(children='Hell de Janeiro'),
@@ -129,9 +157,22 @@ app.layout = html.Div(children=[
     ]),
     dcc.Graph(
         id='third',
-        #figure=fig3
+        figure=fig3
     ),
 ])
+
+@app.callback(
+    Output('third', 'figure'),
+    Input('dropdown','value'))
+def update_figure(value):
+    df_update = prepare_df(df_final,value)
+    fig3 = px.scatter(
+        df_update, x='date_num',y='counts',
+        opacity=0.65,
+        trendline='ols',
+        trendline_color_override='darkblue'
+    )
+    return fig3
 
 if __name__ == '__main__':
     app.run_server(debug=True)

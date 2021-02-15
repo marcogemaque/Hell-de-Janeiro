@@ -165,16 +165,16 @@ app.layout = html.Div(children=[
 
 @app.callback(
     Output('third', 'figure'),
-    Input('dropdown','value'))
+    [Input('dropdown','value')])
 def update_figure(value):
     df_update = prepare_df(df_final,value)
-    fig3 = px.scatter(
+    figs = px.scatter(
         df_update, x='date_num',y='counts',
         opacity=0.65,
         trendline='ols',
         trendline_color_override='darkblue'
     )
-    return fig3
+    return figs
 
 if __name__ == '__main__':
     app.run_server(debug=True)

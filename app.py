@@ -152,6 +152,7 @@ app.layout = html.Div(children=[
     html.Div([
         "Input: ",
         dcc.Dropdown(id="dropdown",
+        value='Belford Roxo',
         options=[
             {'label':i, 'value':i} for i in df_final['content'].unique()
         ]),

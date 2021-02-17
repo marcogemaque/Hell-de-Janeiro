@@ -11,6 +11,9 @@ Hora: xxx
 ```
 That way I was able to select those who fit that description, and then proceed to remove blank spaces at the end, parenthesis, bars, and all sort of characters which made our database heterogeneous. <br>
 
+### Automatization
+The script is updated and uploaded to github at a monthly basis. Tweets are retrieved locally and then the database is updated respectively.
+
 ## Deploy
 Deploy was made on Heroku. Link to app is on hyperlink at the title of this github. <br>
 

@@ -1,9 +1,7 @@
-#import packages
-import pandas as pd
-import numpy as np
 import re
 import json
-
+#import packages
+import pandas as pd
 #import dash
 import dash
 import dash_core_components as dcc
